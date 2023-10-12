@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class User extends Model
+class NewsReporter extends Model
 {
-    protected $fillable = ['name', 'email', 'img', 'otp', 'password'];
+    use HasFactory;
 }

@@ -10,13 +10,17 @@ return new class extends Migration {
      */
     public function up(): void
     {
-        Schema::create('users', function (Blueprint $table) {
+        Schema::create('comments', function (Blueprint $table) {
             $table->id();
-            $table->string('name', 50);
-            $table->string('img', 200)->nullable();
-            $table->string('email', 50)->unique();
-            $table->string('otp', 10)->default(0);
-            $table->string('password', 50);
+            $table->string('description', 500);
+
+            $table->unsignedBigInteger('user_id');
+            $table->unsignedBigInteger('news_id');
+
+            $table->foreign('user_id')->references('id')->on('users')
+                ->cascadeOnUpdate()->restrictOnDelete();
+            $table->foreign('news_id')->references('id')->on('newses')
+                ->cascadeOnUpdate()->restrictOnDelete();
 
             $table->timestamp('created_at')->useCurrent();
             $table->timestamp('updated_at')->useCurrent()->useCurrentOnUpdate();
@@ -28,6 +32,6 @@ return new class extends Migration {
      */
     public function down(): void
     {
-        Schema::dropIfExists('users');
+        Schema::dropIfExists('comments');
     }
 };
