@@ -1,0 +1,32 @@
+.about-area{
+    .about-right{
+        .about-img{
+            img{
+                width: 100%;
+            }
+        }
+        .about-prea{
+            p{
+                font-size: 15px;
+            }
+        }
+    }
+}
+
+
+// Details Page
+.social-share ul li {
+	display: inline-block;
+    margin: 0 10px;
+    @media #{$xs}{
+        margin: 0 7px;
+    }
+    .section-tittle {
+        display: flex;
+    }
+}
+.social-share{
+    .section-tittle {
+        display: flex;
+    }
+}

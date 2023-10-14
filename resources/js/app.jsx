@@ -1,5 +1,6 @@
 import { createInertiaApp } from '@inertiajs/react'
 import { createRoot } from 'react-dom/client';
+import Layout from './layouts/Layout';
 
 
 createInertiaApp({
@@ -8,6 +9,9 @@ createInertiaApp({
     return pages[`./Pages/${name}.jsx`]
   },
   setup({ el, App, props }) {
-    createRoot(el).render(<App {...props} />)
+    createRoot(el).render(
+      <Layout>
+        <App {...props} />
+      </Layout>)
   },
 })

@@ -12,32 +12,135 @@ use Mail;
 
 class UserController extends Controller
 {
+    function userRegister(Request $request)
+    {
+        $user = User::where('email', $request->input('email'))->count();
+        try {
+            if ($user > 0) {
+                return ResponseHelper::failed('email already exists');
+            }
+
+            User::create([
+                'name' => $request->input('name'),
+                'email' => $request->input('email'),
+                'password' => $request->input('password')
+            ]);
+            return ResponseHelper::success('account created successfully');
+
+        } catch (Exception $e) {
+            return ResponseHelper::failed('something went wrong');
+        }
+    }
+    
     function userLogin(Request $request)
     {
-        $email = $request->email;
-        $otp = mt_rand(1000, 9999); //4 digit
+        $count = User::where('email', $request->input('email'))
+            ->where('password', $request->input('password'))
+            ->select('id')->first();
 
-        try {
-            Mail::to($email)->send(new OTPMail($otp));
-            User::updateOrCreate(['email' => $email], ['email' => $email, 'otp' => $otp]);
-            return ResponseHelper::success('6-digit code sent to your email');
-        } catch (Exception $e) {
-            return ResponseHelper::failed('Verification code sending failed');
+        if ($count !== null) {
+            $token = JWTToken::createToken($count->id, $request->input('email'), 'login');
+
+            return response()->json([
+                "status" => "success",
+                "message" => "Login successful",
+                "token" => $token
+            ], 200)->cookie('token', $token, 60 * 24 * 30); // expire in 30 days
+        } else {
+            return response()->json([
+                "status" => "failed",
+                "message" => "unauthorized"
+            ], 401);
         }
     }
 
-    function userRegister(Request $request)
+    function sendOTP(Request $request)
+    {
+        $email = $request->input('email');
+        $count = User::where('email', $email)->count();
+
+        if ($count === 1) {
+            try {
+                // Generate 4 digit Otp
+                $otp = rand(1000, 9999);
+
+                // Send OTP via Email
+                Mail::to($email)->send(new OTPMail($otp));
+
+                // Update on Database
+                User::where('email', $email)->Update([
+                    'otp' => $otp
+                ]);
+
+                return response()->json([
+                    "status" => "success",
+                    "message" => "4 digits otp verification code sent successfully"
+                ], 200);
+
+            } catch (Exception $e) {
+                return response()->json([
+                    "status" => "failed",
+                    "message" => "email sending failed"
+                ], 500);
+            }
+        } else {
+            return response()->json([
+                "status" => "failed",
+                "message" => "unauthorized"
+            ], 401);
+        }
+    }
+
+    function verifyOTP(Request $request)
+    {
+        $email = $request->input('email');
+        $otp = $request->input('otp');
+
+        $count = User::where('email', $email)
+            ->where('otp', $otp)
+            ->count();
+
+        if ($count === 1) {
+            // Generate JWT 
+            $token = JWTToken::createToken(0, $email, 'resetPassword');
+
+            // Reset existing OTP in Database
+            User::where('email', $email)->update([
+                'otp' => '0'
+            ]);
+
+            return response()->json([
+                "status" => "success",
+                "message" => "otp verification successful",
+                "token" => $token
+            ], 200)->cookie('token', $token, 60 * 24 * 30); // expire in 30 days
+
+        } else {
+            return response()->json([
+                "status" => "failed",
+                "message" => "unauthorized"
+            ], 401);
+        }
+    }
+
+    function resetPassword(Request $request)
     {
         try {
-            $user = User::where('email', $request->input('email'))->first();
-            if ($user !== null) {
-                User::create($request);
-                return ResponseHelper::success('user created successfully');
-            } else {
-                return ResponseHelper::failed('email already exists');
-            }
+            $email = $request->header('userEmail');
+            User::where('email', $email)->update([
+                'password' => $request->input('password')
+            ]);
+
+            return response()->json([
+                "status" => "success",
+                "message" => "Password updated successfully"
+            ], 200);
+
         } catch (Exception $e) {
-            return ResponseHelper::failed('something went wrong');
+            return response()->json([
+                "status" => "failed",
+                "message" => "something went wrong"
+            ], 500);
         }
     }
 
@@ -46,38 +149,10 @@ class UserController extends Controller
         $userId = $request->header('userId');
 
         try {
-            User::where('id', $userId)->update($request);
+            User::where('id', $userId)->update($request->input());
             return ResponseHelper::success('user updated successfully');
         } catch (Exception $e) {
             return ResponseHelper::failed('user updating failed');
-        }
-    }
-
-    function verifyOtp(Request $request)
-    {
-        $email = $request->input('email');
-        $otp = $request->input('otp');
-
-        try {
-            $userId = User::where('email', $email)->where('otp', $otp)->select('id')->first();
-
-            if ($userId !== null) {
-                // Generate token
-                $token = JWTToken::createToken($userId->id, $email);
-
-                // Reset otp
-                User::where('email', $email)->update([
-                    'otp' => 0
-                ]);
-
-                $expireCookie = time() + (60 * 60 * 24 * 30); //30 Days
-                return ResponseHelper::success('login successful')->cookie('token', $token, $expireCookie);
-            }
-
-            throw new Exception("user not found", 404);
-
-        } catch (Exception $e) {
-            return ResponseHelper::failed('unauthorized', 401);
         }
     }
 
@@ -85,4 +160,11 @@ class UserController extends Controller
     {
         return redirect('/login')->cookie('token', '', -1);
     }
+
+    function userProfile(Request $request)
+    {
+        $userId = $request->header('userId');
+        return User::where('id', $userId)->first();
+    }
+
 }

@@ -6,9 +6,20 @@ use App\Models\BreakingNews;
 use App\Models\Category;
 use App\Models\News;
 use Illuminate\Http\Request;
+use Inertia\Inertia;
 
 class NewsController extends Controller
 {
+    function homePage()
+    {
+        return Inertia::render('Home');
+    }
+
+    function newsByCategoryPage()
+    {
+        return Inertia::render('NewsByCategory');
+    }
+
     function breakingNewsList(Request $request)
     {
         return BreakingNews::latest()->take(10)->with('news')->get();
@@ -16,7 +27,18 @@ class NewsController extends Controller
 
     function newsListByCategory(Request $request)
     {
-        return Category::where('name', $request->name)->with('news')->latest()->get();
+        $limit = $request->query('limit');
+        $newses = Category::where('name', $request->name)->with('news')->latest();
+
+        if ($limit > 0) {
+            return $newses->take($limit);
+        }
+        return $newses->get();
+    }
+
+    function categoryList(Request $request)
+    {
+        return Category::pluck('name');
     }
 
     function newsById(Request $request)
