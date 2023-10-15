@@ -7,15 +7,14 @@ use App\Http\Middleware\VerifyTokenMiddleware;
 use Illuminate\Support\Facades\Route;
 
 //__        PAGE ROUTES       __//
-
 // News
 Route::controller(NewsController::class)->group(function () {
     Route::get('/', 'homePage');
-    Route::get('/collections/{categoryName}','newsByCategoryPage');
+    Route::get('/collections/{categoryName}', 'newsByCategoryPage');
+    Route::get('/news/details/{id}', 'newsDetailsPage');
 });
 
 //__        API ROUTES       __//
-
 // News
 Route::controller(NewsController::class)->group(function () {
     Route::get('/newsById/{id}', 'newsById');

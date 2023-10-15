@@ -15,9 +15,18 @@ class NewsController extends Controller
         return Inertia::render('Home');
     }
 
-    function newsByCategoryPage()
+    function newsByCategoryPage(Request $request)
     {
-        return Inertia::render('NewsByCategory');
+        return Inertia::render('NewsByCategory', [
+            'params' => $request->categoryName
+        ]);
+    }
+
+    function newsDetailsPage(Request $request)
+    {
+        return Inertia::render('NewsDetails', [
+            'params' => $request->id
+        ]);
     }
 
     function breakingNewsList(Request $request)
@@ -28,12 +37,12 @@ class NewsController extends Controller
     function newsListByCategory(Request $request)
     {
         $limit = $request->query('limit');
-        $newses = Category::where('name', $request->name)->with('news')->latest();
-
-        if ($limit > 0) {
-            return $newses->take($limit);
-        }
-        return $newses->get();
+        $newses = Category::where('name', $request->name)->with([
+            'news' => function ($query) use ($limit) {
+                $query->latest()->limit($limit);
+            }
+        ]);
+        return $newses->first();
     }
 
     function categoryList(Request $request)

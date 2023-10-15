@@ -4,9 +4,9 @@ import React from 'react';
 const TopNews = ({ id, title, img, }) => {
     return (
         <div className="trending-top mb-30">
-            <Link href={`news/details?id=${id}`}>
+            <Link href={`news/details/${id}`}>
                 <div className="trend-top-img">
-                    <img style={{maxHeight:'30rem',backgroundImage:'cover'}} src={img} alt={title} />
+                    <img style={{maxHeight:'35rem'}} src={img} alt={title} />
                     <div className="trend-top-cap">
                         <h2 className="text-white">
                             {title}

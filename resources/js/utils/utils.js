@@ -24,3 +24,17 @@ export const calculateTimeDifference = (createdAt) => {
         return `${months} months ago`;
     }
 };
+
+export function formatDateString(inputDateString) {
+    const options = {
+        year: 'numeric',
+        month: 'short',
+        day: 'numeric',
+        hour: 'numeric',
+        minute: 'numeric',
+        hour12: true,
+    };
+
+    return new Date(inputDateString).toLocaleString('en-US', options);
+
+}
