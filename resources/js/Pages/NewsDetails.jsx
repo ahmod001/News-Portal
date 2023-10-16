@@ -3,6 +3,7 @@ import Loading from '../components/Loading';
 import axios from 'axios';
 import { Link, usePage } from '@inertiajs/react';
 import { formatDateString } from '../utils/utils';
+import Layout from '../layouts/Layout';
 
 const NewsDetails = () => {
     const [news, setNews] = useState({});
@@ -30,77 +31,102 @@ const NewsDetails = () => {
 
     const handleCommentSubmit = (e) => {
         e.preventDefault();
-        const comment  = commentRef.current.value;
+        const comment = commentRef.current.value;
     }
 
+    const getPageURL = () => (
+        window.location.href
+    )
+
     return (
-        isLoading ?
-            <Loading />
-            : <section className="about-area">
-                <div className="container">
+        <Layout>
+            {isLoading ?
+                <Loading />
+                : <section className="about-area">
+                    <div className="container">
 
-                    <div className="row py-4">
-                        <div className="col-lg-8">
-                            {/* Category Name */}
-                            <Link href={'/collections/' + category?.name} className='text-danger' style={{ fontSize: "1.2rem", textDecoration: 'underline' }}>{category?.name}</Link>
+                        <div className="row py-4">
+                            <div className="col-lg-8">
+                                {/* Category Name */}
+                                <Link href={'/collections/' + category?.name} className='text-danger' style={{ fontSize: "1.2rem", textDecoration: 'underline' }}>{category?.name}</Link>
 
-                            {/* Title */}
-                            <h2 className="section-tittle mb-30 mt-20">
-                                {title}
-                            </h2>
+                                {/* Title */}
+                                <h2 className="section-tittle mb-30 mt-20">
+                                    {title}
+                                </h2>
 
-                            {/* Reporter Name */}
-                            <h6>{reporter?.name}</h6>
+                                {/* Reporter Name */}
+                                <h6>{reporter?.name}</h6>
 
-                            {/* Published At */}
-                            <div className='mb-30'>
-                                <small className='font-weight-bold text-secondary'>Published: {formatDateString(created_at)}</small>
-                            </div>
-
-                            {/* <!-- Img --> */}
-                            <div className="about-right mb-90">
-                                <div className="about-img">
-                                    <img style={{ maxHeight: '35rem' }} src={img} alt={title} />
+                                {/* Published At */}
+                                <div className='mb-30'>
+                                    <small className='font-weight-bold text-secondary'>Published: {formatDateString(created_at)}</small>
                                 </div>
 
-                                <p className="about-prea1 pt-30">
-                                    {description}
-                                </p>
+                                {/* <!-- Img --> */}
+                                <div className="about-right mb-90">
+                                    <div className="about-img">
+                                        <img style={{ maxHeight: '35rem' }} src={img} alt={title} />
+                                    </div>
 
-                                <div className="social-share pt-30">
-                                    <div className="section-tittle">
-                                        <h3 className="mr-20">Share:</h3>
-                                        <ul>
-                                            <li><a href="#"><img src="/assets/img/news/icon-ins.png" alt="" /></a></li>
-                                            <li><a href="#"><img src="/assets/img/news/icon-fb.png" alt="" /></a></li>
-                                            <li><a href="#"><img src="/assets/img/news/icon-tw.png" alt="" /></a></li>
-                                        </ul>
+                                    <p className="about-prea1 pt-30">
+                                        {description}
+                                    </p>
+
+                                    <div className="social-share pt-30">
+                                        <div className="section-tittle">
+                                            <h3 className="mr-20">Share:</h3>
+                                            <ul>
+                                                {/* Facebook */}
+                                                <li>
+                                                    <a target='_blank' href={'https://www.facebook.com/sharer/sharer.php?u=' + getPageURL()}>
+                                                        <img src="/assets/img/news/icon-fb.png" alt="facebook" />
+                                                    </a>
+                                                </li>
+
+                                                {/* Twitter */}
+                                                <li>
+                                                    <a target='_blank' href={'https://twitter.com/intent/tweet?url=' + getPageURL()}>
+                                                        <img src="/assets/img/news/icon-tw.png" alt="twitter" />
+                                                    </a>
+                                                </li>
+
+                                                {/* Whatsapp */}
+                                                <li>
+                                                    <a href={'https://api.whatsapp.com/send?text=' + getPageURL()} target='_blank'>
+                                                        <img style={{ height: '2.5rem' }} src="/assets/img/news/whatsapp.png" alt="whatsapp" />
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                                {/* <!-- From --> */}
+                                <div className="row">
+                                    <div className="col-lg-8">
+                                        <form onSubmit={() => handleCommentSubmit(event)} className="form-contact contact_form mb-80">
+                                            <div className="row">
+                                                <div className="col-12">
+                                                    <div>
+                                                        <textarea ref={commentRef} className="form-control w-100 error" rows="8" placeholder="Share Your Thoughts" />
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                            <div className="form-group mt-4">
+                                                <button type="submit" className="button button-contactForm boxed-btn">Send</button>
+                                            </div>
+                                        </form>
                                     </div>
                                 </div>
                             </div>
-                            {/* <!-- From --> */}
-                            <div className="row">
-                                <div className="col-lg-8">
-                                    <form onSubmit={() => handleCommentSubmit(event)} className="form-contact contact_form mb-80">
-                                        <div className="row">
-                                            <div className="col-12">
-                                                <div>
-                                                    <textarea ref={commentRef} className="form-control w-100 error" rows="8" placeholder="Share Your Thoughts" />
-                                                </div>
-                                            </div>
-
-                                        </div>
-                                        <div className="form-group mt-4">
-                                            <button type="submit" className="button button-contactForm boxed-btn">Send</button>
-                                        </div>
-                                    </form>
-                                </div>
+                            <div className="col-lg-4 d-flex justify-content-center">
+                                <img src="/assets/img/news/news_card.jpg" style={{ maxHeight: '49rem' }} alt="ad" />
                             </div>
                         </div>
-                        <div className="col-lg-4"></div>
                     </div>
-                </div>
-            </section>
+                </section>}
+        </Layout>
     );
 };
 

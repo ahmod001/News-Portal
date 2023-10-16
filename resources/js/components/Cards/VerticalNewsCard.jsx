@@ -5,7 +5,7 @@ import { calculateTimeDifference } from '../../utils/utils';
 const VerticalNewsCard = ({ id, title, description, img, created_at }) => {
     return (
         <div>
-            <Link href={`news/details/${id}`}>
+            <Link href={`/news/details/${id}`}>
                 <div className="single-bottom mb-35">
                     <div className=" mb-20">
                         <img style={{ maxHeight: '15rem' }} src={img} alt={title} />

@@ -33,6 +33,14 @@ const Navbar = () => {
         query && router.visit(`/search?q=${query}`, { method: 'get' });
     }
 
+    const handleLogout = () => {
+        try {
+            axios.get('/userLogout');
+        } catch (e) {
+
+        }
+    }
+
     return (
         <div className="header-area">
             <div className="main-header ">
@@ -52,9 +60,21 @@ const Navbar = () => {
                             </div>
                         </div>
 
-                        <div className='pt-2'>
+                        <div className="d-flex justify-content-between align-items-center pt-3">
                             {/* Current Date */}
-                            <small className='font-weight-bold text-secondary'>{getCurrentDate()}</small>
+                            <div>
+                                <small className='font-weight-bold text-secondary'>{getCurrentDate()}</small>
+                            </div>
+
+                            <div>
+                                {/* Login */}
+                                <Link href='/login'>
+                                    <button type="button" style={{ transform: 'scale(0.75)', fontSize: "1rem" }} class="btn">Login</button>
+                                </Link>
+
+                                {/* Logout */}
+                                <button type="button" onClick={handleLogout} style={{ transform: 'scale(0.75)', fontSize: "1rem" }} class="btn">Logout</button>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -89,6 +109,7 @@ const Navbar = () => {
                                 </div>
                             </div>
                             <div className="col-xl-2 col-lg-2 col-md-4">
+
                                 <div className="header-right-btn f-right d-none d-lg-block">
                                     <i onClick={handleSearch} className="fas fa-search special-tag"></i>
                                     <div className="search-box">
@@ -101,7 +122,7 @@ const Navbar = () => {
                             {/*  Mobile Menu */}
                             <div className="col-12">
                                 <div className="mobile_menu d-block d-md-none">
-                            
+
                                 </div>
                             </div>
                         </div>

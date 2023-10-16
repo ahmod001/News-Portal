@@ -14,6 +14,15 @@ Route::controller(NewsController::class)->group(function () {
     Route::get('/news/details/{id}', 'newsDetailsPage');
 });
 
+Route::controller(UserController::class)->group(function () {
+    Route::get('/login', 'loginPage');
+    Route::get('/register', 'registerPage');
+    Route::get('/forgot-password', 'forgotPasswordPage');
+    Route::get('/verify-otp', 'verifyOtpPage');
+    Route::get('/reset-password', 'resetPasswordPage');
+});
+
+
 //__        API ROUTES       __//
 // News
 Route::controller(NewsController::class)->group(function () {

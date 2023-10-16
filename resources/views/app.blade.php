@@ -20,6 +20,7 @@
     <link rel="stylesheet" href="{{ asset('/assets/css/nice-select.css') }}">
     <link rel="stylesheet" href="{{ asset('/assets/css/style.css') }}">
     <link rel="stylesheet" href="{{ asset('/assets/css/responsive.css') }}">
+    <link rel="stylesheet" href="{{ asset('/assets/css/toastify.min.css') }}">
 </head>
 
 @viteReactRefresh
@@ -42,6 +43,10 @@
     <!-- Jquery Slick , Owl-Carousel Plugins -->
     <script src="{{ asset('/assets/js/owl.carousel.min.js') }}"></script>
     <script src="{{ asset('/assets/js/slick.min.js') }}"></script>
+
+    {{-- Toastfy --}}
+    <script src="{{ asset('/assets/js/toastify-js.js') }}"></script>
+
     <!-- Date Picker -->
     <script src="{{ asset('/assets/js/gijgo.min.js') }}"></script>
     <!-- One Page, Animated-HeadLin -->

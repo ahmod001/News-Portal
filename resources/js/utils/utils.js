@@ -38,3 +38,29 @@ export function formatDateString(inputDateString) {
     return new Date(inputDateString).toLocaleString('en-US', options);
 
 }
+
+
+// Toastify Pop-up Handlers
+export function successToast(msg) {
+    Toastify({
+        gravity: "bottom", // `top` or `bottom`
+        position: "center", // `left`, `center` or `right`
+        text: msg,
+        className: "mb-5",
+        style: {
+            background: "green",
+        }
+    }).showToast();
+}
+
+export function errorToast(msg) {
+    Toastify({
+        gravity: "bottom", // `top` or `bottom`
+        position: "center", // `left`, `center` or `right`
+        text: msg,
+        className: "mb-5",
+        style: {
+            background: "red",
+        }
+    }).showToast();
+}

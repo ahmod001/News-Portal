@@ -3,6 +3,7 @@ import Loading from '../components/Loading';
 import TopNews from '../components/Cards/TopNews';
 import VerticalNewsCard from '../components/Cards/verticalNewsCard';
 import axios from 'axios';
+import Layout from '../layouts/Layout';
 
 
 const Home = () => {
@@ -24,9 +25,10 @@ const Home = () => {
     }, []);
 
     return (
-        isLoading ?
-            <Loading />
-            : <section className='min-vh-100'>
+        <Layout>
+           { isLoading ?
+                <Loading />
+                : <section className='min-vh-100'>
                 <div className="trending-area fix">
                     <div className="container">
                         <div className="trending-main py-5">
@@ -77,7 +79,8 @@ const Home = () => {
                         </div>
                     </div>
                 </div>
-            </section>
+            </section>}
+        </Layout>
     );
 };
 

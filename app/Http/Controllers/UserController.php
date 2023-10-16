@@ -8,10 +8,36 @@ use App\Mail\OTPMail;
 use App\Models\User;
 use Exception;
 use Illuminate\Http\Request;
+use Inertia\Inertia;
 use Mail;
 
 class UserController extends Controller
 {
+    function loginPage()
+    {
+        return Inertia::render('Login');
+    }
+
+    function registerPage()
+    {
+        return Inertia::render('Register');
+    }
+
+    function forgotPasswordPage()
+    {
+        return Inertia::render('ForgotPassword');
+    }
+
+    function verifyOtpPage()
+    {
+        return Inertia::render('OTPVerification');
+    }
+
+    function resetPasswordPage()
+    {
+        return Inertia::render('ResetPassword');
+    }
+
     function userRegister(Request $request)
     {
         $user = User::where('email', $request->input('email'))->count();
@@ -31,7 +57,7 @@ class UserController extends Controller
             return ResponseHelper::failed('something went wrong');
         }
     }
-    
+
     function userLogin(Request $request)
     {
         $count = User::where('email', $request->input('email'))
