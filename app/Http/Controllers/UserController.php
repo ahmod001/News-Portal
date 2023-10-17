@@ -15,27 +15,27 @@ class UserController extends Controller
 {
     function loginPage()
     {
-        return Inertia::render('Login');
+        return Inertia::render('Auth/Login');
     }
 
     function registerPage()
     {
-        return Inertia::render('Register');
+        return Inertia::render('Auth/Register');
     }
 
     function forgotPasswordPage()
     {
-        return Inertia::render('ForgotPassword');
+        return Inertia::render('Auth/ForgotPassword');
     }
 
     function verifyOtpPage()
     {
-        return Inertia::render('OTPVerification');
+        return Inertia::render('Auth/OTPVerification');
     }
 
     function resetPasswordPage()
     {
-        return Inertia::render('ResetPassword');
+        return Inertia::render('Auth/ResetPassword');
     }
 
     function userRegister(Request $request)
@@ -43,7 +43,7 @@ class UserController extends Controller
         $user = User::where('email', $request->input('email'))->count();
         try {
             if ($user > 0) {
-                return ResponseHelper::failed('email already exists');
+                return ResponseHelper::failed('Email already exists');
             }
 
             User::create([
@@ -51,10 +51,10 @@ class UserController extends Controller
                 'email' => $request->input('email'),
                 'password' => $request->input('password')
             ]);
-            return ResponseHelper::success('account created successfully');
+            return ResponseHelper::success('Registration successfully');
 
         } catch (Exception $e) {
-            return ResponseHelper::failed('something went wrong');
+            return ResponseHelper::failed('Registration failed');
         }
     }
 
@@ -75,7 +75,7 @@ class UserController extends Controller
         } else {
             return response()->json([
                 "status" => "failed",
-                "message" => "unauthorized"
+                "message" => "Unauthorized"
             ], 401);
         }
     }
@@ -106,13 +106,13 @@ class UserController extends Controller
             } catch (Exception $e) {
                 return response()->json([
                     "status" => "failed",
-                    "message" => "email sending failed"
+                    "message" => "Email sending failed"
                 ], 500);
             }
         } else {
             return response()->json([
                 "status" => "failed",
-                "message" => "unauthorized"
+                "message" => "Unauthorized"
             ], 401);
         }
     }

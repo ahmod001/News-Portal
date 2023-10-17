@@ -19,7 +19,7 @@ Route::controller(UserController::class)->group(function () {
     Route::get('/register', 'registerPage');
     Route::get('/forgot-password', 'forgotPasswordPage');
     Route::get('/verify-otp', 'verifyOtpPage');
-    Route::get('/reset-password', 'resetPasswordPage');
+    Route::get('/reset-password', 'resetPasswordPage')->middleware(VerifyTokenMiddleware::class);
 });
 
 
