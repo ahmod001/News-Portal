@@ -4,11 +4,11 @@ import axios from 'axios';
 import { Link, usePage } from '@inertiajs/react';
 import { formatDateString } from '../utils/utils';
 import Layout from '../layouts/Layout';
+import Comments from '../components/Comments/Comments';
 
 const NewsDetails = () => {
     const [news, setNews] = useState({});
     const [isLoading, setIsLoading] = useState(false);
-    const commentRef = useRef();
     const { props } = usePage();
     const newsId = props.params;
 
@@ -27,22 +27,19 @@ const NewsDetails = () => {
         })()
     }, [])
 
-    const { title, description, img, reporter, category, created_at } = news;
+    const { id, title, description, img, reporter, category, created_at } = news;
 
-    const handleCommentSubmit = (e) => {
-        e.preventDefault();
-        const comment = commentRef.current.value;
-    }
+
 
     const getPageURL = () => (
         window.location.href
     )
 
     return (
-        <Layout>
-            {isLoading ?
-                <Loading />
-                : <section className="about-area">
+        isLoading ?
+            <Loading />
+            : <Layout>
+                <section className="about-area">
                     <div className="container">
 
                         <div className="row py-4">
@@ -101,23 +98,9 @@ const NewsDetails = () => {
                                         </div>
                                     </div>
                                 </div>
-                                {/* <!-- From --> */}
+                                {/* <!-- Comments --> */}
                                 <div className="row">
-                                    <div className="col-lg-8">
-                                        <form onSubmit={() => handleCommentSubmit(event)} className="form-contact contact_form mb-80">
-                                            <div className="row">
-                                                <div className="col-12">
-                                                    <div>
-                                                        <textarea ref={commentRef} className="form-control w-100 error" rows="8" placeholder="Share Your Thoughts" />
-                                                    </div>
-                                                </div>
-
-                                            </div>
-                                            <div className="form-group mt-4">
-                                                <button type="submit" className="button button-contactForm boxed-btn">Send</button>
-                                            </div>
-                                        </form>
-                                    </div>
+                                    <Comments newsId={id} />
                                 </div>
                             </div>
                             <div className="col-lg-4 d-flex justify-content-center">
@@ -125,8 +108,8 @@ const NewsDetails = () => {
                             </div>
                         </div>
                     </div>
-                </section>}
-        </Layout>
+                </section>
+            </Layout>
     );
 };
 

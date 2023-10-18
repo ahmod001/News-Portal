@@ -1,12 +1,24 @@
 import { Link, router } from '@inertiajs/react';
-
 import axios from 'axios';
-import React, { useEffect, useState, useRef } from 'react';
+import React, { useEffect, useState, useRef, useContext } from 'react';
+import { useCookies } from "react-cookie";
+import { userContext } from '../Context/UserContext';
 
 const Navbar = () => {
+    const { loginState: [isLoggedIn, setIsLoggedIn] } = useContext(userContext);
     const [categoryList, setCategoryList] = useState([]);
+    const [cookies, setCookie] = useCookies();
+
     const searchRef = useRef();
 
+    const token = cookies.token;
+    useEffect(() => {
+        if (token) {
+            setIsLoggedIn(true)
+        }
+    }, [])
+
+    // Get Category List
     useEffect(() => {
         (async () => {
             try {
@@ -17,6 +29,7 @@ const Navbar = () => {
             }
         })()
     }, [])
+
 
     const getCurrentDate = () => {
         const options = {
@@ -33,13 +46,6 @@ const Navbar = () => {
         query && router.visit(`/search?q=${query}`, { method: 'get' });
     }
 
-    const handleLogout = () => {
-        try {
-            axios.get('/userLogout');
-        } catch (e) {
-
-        }
-    }
 
     return (
         <div className="header-area">
@@ -67,13 +73,17 @@ const Navbar = () => {
                             </div>
 
                             <div>
-                                {/* Login */}
-                                <Link href='/login'>
-                                    <button type="button" style={{ transform: 'scale(0.75)', fontSize: "1rem" }} class="btn">Login</button>
-                                </Link>
+                                {
+                                    !isLoggedIn ?
+                                        (// Login Btn
+                                            <Link href='/login'>
+                                                <button type="button" style={{ transform: 'scale(0.75)', fontSize: "1rem" }} class="btn">Login</button>
+                                            </Link>)
 
-                                {/* Logout */}
-                                <button type="button" onClick={handleLogout} style={{ transform: 'scale(0.75)', fontSize: "1rem" }} class="btn">Logout</button>
+                                        : (<Link title='Profile' href='/profile'>
+                                            <img src="/assets/img/user.jpg" style={{ maxHeight: '3rem', borderRadius: '100%' }} alt={name} />
+                                        </Link>)
+                                }
                             </div>
                         </div>
                     </div>

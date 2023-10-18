@@ -1,4 +1,4 @@
-import { Link } from '@inertiajs/react';
+import { Link, router } from '@inertiajs/react';
 import React, { useRef, useState } from 'react';
 import { errorToast, successToast } from '../../utils/utils';
 import GoBackButton from '../../components/GoBackButton';
@@ -20,6 +20,7 @@ const Login = () => {
             const res = await axios.post('/userLogin', { 'email': email, password: password });
             setIsLoading(false)
             successToast(res.data.message);
+            setTimeout(() => router.visit('/', { method: 'get' }), 1000)
         } catch (error) {
             setIsLoading(false)
             errorToast('Email/Password is invalid');
@@ -30,7 +31,7 @@ const Login = () => {
         isLoading ?
             <Loading />
             : <section className='container' style={{ paddingTop: '6rem' }}>
-                <GoBackButton href={document.referrer} />
+                <GoBackButton href={'/'} />
 
                 <div className='d-flex justify-content-center'>
 

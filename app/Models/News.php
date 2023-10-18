@@ -20,8 +20,4 @@ class News extends Model
     {
         return $this->belongsTo(NewsReporter::class, 'reporter_id');
     }
-    function comment(): HasMany
-    {
-        return $this->hasMany(Comment::class);
-    }
 }

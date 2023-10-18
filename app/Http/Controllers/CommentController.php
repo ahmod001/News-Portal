@@ -9,6 +9,15 @@ use Illuminate\Http\Request;
 
 class CommentController extends Controller
 {
+    function commentListByNewsId(Request $request)
+    {
+        return Comment::where('news_id', $request->newsId)->latest()->with([
+            'user' => function ($query) {
+                $query->select('id', 'name', 'img');
+            }
+        ])->get();
+    }
+
     function createUpdateComment(Request $request)
     {
         try {
@@ -38,10 +47,10 @@ class CommentController extends Controller
 
             Comment::where(['id' => $commentId, 'news_id' => $newsId, 'user_id' => $userId])->delete();
 
-            return ResponseHelper::success('deleted successfully');
+            return ResponseHelper::success('Deleted successfully');
 
         } catch (Exception $e) {
-            return ResponseHelper::failed();
+            return ResponseHelper::failed('Failed to delete');
         }
     }
 }

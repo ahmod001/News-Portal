@@ -52,7 +52,7 @@ class NewsController extends Controller
 
     function newsById(Request $request)
     {
-        return News::where('id', $request->id)->with('category', 'reporter', 'comment', 'comment.user')->first();
+        return News::where('id', $request->id)->with('category', 'reporter')->first();
     }
 
 }

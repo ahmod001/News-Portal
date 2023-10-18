@@ -14,12 +14,14 @@ Route::controller(NewsController::class)->group(function () {
     Route::get('/news/details/{id}', 'newsDetailsPage');
 });
 
+// User
 Route::controller(UserController::class)->group(function () {
     Route::get('/login', 'loginPage');
     Route::get('/register', 'registerPage');
     Route::get('/forgot-password', 'forgotPasswordPage');
     Route::get('/verify-otp', 'verifyOtpPage');
     Route::get('/reset-password', 'resetPasswordPage')->middleware(VerifyTokenMiddleware::class);
+    Route::get('/profile', 'profilePage')->middleware(VerifyTokenMiddleware::class);
 });
 
 
@@ -50,4 +52,5 @@ Route::controller(UserController::class)->group(function () {
 Route::controller(CommentController::class)->group(function () {
     Route::post('/createUpdateComment', 'createUpdateComment')->middleware(VerifyTokenMiddleware::class);
     Route::post('/deleteComment', 'deleteComment')->middleware(VerifyTokenMiddleware::class);
+    Route::get('/commentList/{newsId}', 'commentListByNewsId');
 });

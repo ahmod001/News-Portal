@@ -13,6 +13,11 @@ use Mail;
 
 class UserController extends Controller
 {
+    function profilePage()
+    {
+        return Inertia::render('Profile');
+    }
+    
     function loginPage()
     {
         return Inertia::render('Auth/Login');
@@ -32,7 +37,7 @@ class UserController extends Controller
     {
         return Inertia::render('Auth/OTPVerification');
     }
-
+    
     function resetPasswordPage()
     {
         return Inertia::render('Auth/ResetPassword');
@@ -71,7 +76,8 @@ class UserController extends Controller
                 "status" => "success",
                 "message" => "Login successful",
                 "token" => $token
-            ], 200)->cookie('token', $token, 60 * 24 * 30); // expire in 30 days
+            ], 200)->cookie('token', $token, 60 * 24 * 30, null, null, true, false); // expire in 30 days
+
         } else {
             return response()->json([
                 "status" => "failed",
@@ -184,7 +190,12 @@ class UserController extends Controller
 
     function userLogout(Request $request)
     {
-        return redirect('/login')->cookie('token', '', -1);
+        try {
+            return ResponseHelper::success('Logout Successful')->cookie('token', '', -1);
+
+        } catch (Exception $e) {
+            return ResponseHelper::failed('Logout failed');
+        }
     }
 
     function userProfile(Request $request)
