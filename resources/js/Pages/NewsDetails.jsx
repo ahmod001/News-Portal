@@ -5,9 +5,11 @@ import { Link, usePage } from '@inertiajs/react';
 import { formatDateString } from '../utils/utils';
 import Layout from '../layouts/Layout';
 import Comments from '../components/Comments/Comments';
+import ImgPlaceholder from '../components/ImgPlaceholder';
 
 const NewsDetails = () => {
     const [news, setNews] = useState({});
+    const [isImgLoaded, setIsImgLoaded] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
     const { props } = usePage();
     const newsId = props.params;
@@ -28,7 +30,6 @@ const NewsDetails = () => {
     }, [])
 
     const { id, title, description, img, reporter, category, created_at } = news;
-
 
 
     const getPageURL = () => (
@@ -63,7 +64,11 @@ const NewsDetails = () => {
                                 {/* <!-- Img --> */}
                                 <div className="about-right mb-90">
                                     <div className="about-img">
-                                        <img style={{ maxHeight: '35rem' }} src={img} alt={title} />
+
+                                        {!isImgLoaded &&
+                                            (<ImgPlaceholder maxHeight={'35rem'} />)}
+
+                                        <img style={{ maxHeight: '35rem' }} onLoad={() => setIsImgLoaded(true)} src={img} alt={title} />
                                     </div>
 
                                     <p className="about-prea1 pt-30">
