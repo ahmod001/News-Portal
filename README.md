@@ -1,67 +1,42 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+![aznews-1](https://github.com/ahmod001/News-Portal/assets/121039395/c9eaa0dc-cdb2-4db2-97ad-00db12597816)
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+# News Portal Application
 
-## About Laravel
+Welcome to the News Portal Application! This sophisticated web application provides users with a seamless experience to stay informed, share opinions, and engage in discussions on a wide range of news articles.
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+## Features
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+- **Browse News Articles:** Effortlessly explore a curated selection of news articles, meticulously organized by categories such as politics, technology, sports, and more.
 
-## Learning Laravel
+- **User Registration and Authentication:** Seamlessly create and manage user accounts with a robust JWT-based authentication system, ensuring secure and private access.
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+- **Commenting System:** Foster meaningful discussions by providing users with the ability to comment on news articles. Explore and respond to comments from a vibrant community of users.
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+- **Responsive Design:** The application boasts a responsive design crafted with React, Bootstrap 4, and SCSS, ensuring an optimal user experience across devices, from desktops to smartphones.
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 2000 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+- **Backend Powered by Laravel and Inertia.js:** Leverage the power of Laravel for building a reliable backend, coupled with Inertia.js to facilitate dynamic, single-page application interactions.
 
-## Laravel Sponsors
+## Technologies Used
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
+- **Laravel:** A PHP web application framework renowned for its elegant syntax and powerful features, providing a solid foundation for robust and scalable web applications.
 
-### Premium Partners
+- **React:** A cutting-edge JavaScript library for building modern user interfaces, enhancing the overall user experience with dynamic and interactive elements.
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[OP.GG](https://op.gg)**
-- **[WebReinvent](https://webreinvent.com/?utm_source=laravel&utm_medium=github&utm_campaign=patreon-sponsors)**
-- **[Lendio](https://lendio.com)**
+- **Inertia.js:** A progressive JavaScript framework, eliminating the need for a separate API and allowing for the development of powerful single-page applications.
 
-## Contributing
+- **Bootstrap 4:** A sleek and intuitive CSS framework that accelerates the development process, ensuring a visually appealing and consistent user interface.
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+- **SCSS:** Elevate the styling of your application with SCSS, a preprocessor that enhances maintainability and readability while offering advanced features.
 
-## Code of Conduct
+- **MySQL:** A reliable and efficient relational database management system, ensuring seamless data storage and retrieval.
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+- **JWT Authentication:** Ensure secure and stateless user authentication through JSON Web Tokens, providing a streamlined and robust authentication process.
 
-## Security Vulnerabilities
+## Installation
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+1. **Clone the Repository:**
 
-## License
+   ```bash
+   git clone https://github.com/ahmod001/News-Portal.git
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
-# News-Portal
