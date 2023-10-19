@@ -54,7 +54,7 @@ const NewsByCategory = () => {
                                                 {newsList?.map((news, i) => {
                                                     const { id, title, img, description, created_at } = news;
 
-                                                    if (i > 1) {
+                                                    if (i > 4) {
                                                         return (
                                                             <div key={i} className='col-lg-4'>
                                                                 <VerticalNewsCard
@@ -72,11 +72,15 @@ const NewsByCategory = () => {
                                     </div>
                                     {/* Right content */}
                                     <div className="col-lg-4 ">
-                                        <HorizontalNewsCard
-                                            id={newsList[1]?.id}
-                                            img={newsList[1]?.img}
-                                            title={newsList[1]?.title}
-                                            created_at={newsList[1]?.created_at} />
+                                        {newsList.map((news, i) => {
+                                            if (i > 0 && i < 5) {
+                                                return (<HorizontalNewsCard
+                                                    id={news?.id}
+                                                    img={news?.img}
+                                                    title={news?.title}
+                                                    created_at={news?.created_at} />)
+                                            }
+                                        })}
 
                                     </div>
                                 </div>
