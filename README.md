@@ -33,6 +33,15 @@ Welcome to the News Portal Application! This sophisticated web application provi
 
 - **JWT Authentication:** Ensure secure and stateless user authentication through JSON Web Tokens, providing a streamlined and robust authentication process.
 
+## User Module
+[User Module API Documentation](https://documenter.getpostman.com/view/29492560/2s9YRB3s39)
+
+## News Module
+[News Module API Documentation](https://documenter.getpostman.com/view/29492560/2s9YRB3s38)
+
+## Comment Module
+[Comment Module API Documentation](https://documenter.getpostman.com/view/29492560/2s9YRB3s37)
+
 ## Installation
 
 1. **Clone the Repository:**
