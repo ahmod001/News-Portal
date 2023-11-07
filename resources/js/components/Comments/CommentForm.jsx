@@ -1,6 +1,7 @@
 import React, { useState, useRef } from 'react';
 import axios from 'axios';
 import { errorToast } from '../../utils/utils';
+import { router } from '@inertiajs/react';
 
 const CommentForm = ({ newsId, isCommentProcessing, setIsCommentProcessing }) => {
     const commentRef = useRef();
@@ -17,12 +18,24 @@ const CommentForm = ({ newsId, isCommentProcessing, setIsCommentProcessing }) =>
                 e.target.reset();
                 setIsCommentProcessing(!isCommentProcessing)
                 setIsLoading(false);
-                
+
             } catch (error) {
-                errorToast('Something went wrong')
-                setIsLoading(false)
+                setIsLoading(false);
+
+                if (error.response?.data === "unauthorized") {
+                    const isOk = askForLogin();
+                    isOk && router.visit('/login');
+                    
+                } else {
+                    errorToast('Something went wrong')
+                }
             }
         }
+    }
+
+    function askForLogin() {
+        const result = confirm('You need to login before you can comment');
+        return result;
     }
 
     return (

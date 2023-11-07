@@ -31,7 +31,6 @@ const NewsDetails = () => {
 
     const { id, title, description, img, reporter, category, created_at } = news;
 
-
     const getPageURL = () => (
         window.location.href
     )
@@ -42,7 +41,6 @@ const NewsDetails = () => {
             : <Layout>
                 <section className="about-area">
                     <div className="container">
-
                         <div className="row py-4">
                             <div className="col-lg-8">
                                 {/* Category Name */}

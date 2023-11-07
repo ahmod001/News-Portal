@@ -29,8 +29,8 @@ const Login = () => {
 
     return (
         isLoading ?
-            <Loading />
-            : <section className='container' style={{ paddingTop: '6rem' }}>
+            (<Loading />)
+            : (<section className='container' style={{ paddingTop: '6rem' }}>
                 <GoBackButton href={'/'} />
 
                 <div className='d-flex justify-content-center'>
@@ -41,11 +41,11 @@ const Login = () => {
                         <h1 className="h3 mb-3 font-weight-normal text-center mb-4">Login</h1>
 
                         {/* Email */}
-                        <input type="email" ref={emailRef} className="form-control" placeholder="Enter Email" required />
+                        <input defaultValue={'hasan.webdev1@gmail.com'} type="email" ref={emailRef} className="form-control" placeholder="Enter Email" required />
 
                         {/* Password */}
                         <div className='mt-3 mb-3'>
-                            <input type="password" ref={passwordRef} className="form-control" placeholder="Enter Password" required />
+                            <input defaultValue={'helloBoi'} type="password" ref={passwordRef} className="form-control" placeholder="Enter Password" required />
                         </div>
 
                         <div className='mb-3'>
@@ -70,7 +70,7 @@ const Login = () => {
                         </div>
                     </form>
                 </div>
-            </section>
+            </section>)
     );
 };
 

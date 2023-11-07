@@ -74,11 +74,14 @@ const NewsByCategory = () => {
                                     <div className="col-lg-4 ">
                                         {newsList.map((news, i) => {
                                             if (i > 0 && i < 5) {
-                                                return (<HorizontalNewsCard
-                                                    id={news?.id}
-                                                    img={news?.img}
-                                                    title={news?.title}
-                                                    created_at={news?.created_at} />)
+                                                return (
+                                                    <HorizontalNewsCard
+                                                    key={i}
+                                                        id={news?.id}
+                                                        img={news?.img}
+                                                        title={news?.title}
+                                                        created_at={news?.created_at} />
+                                                )
                                             }
                                         })}
 
