@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Helper\ResponseHelper;
 use App\Models\BreakingNews;
 use App\Models\Category;
 use App\Models\News;
@@ -29,6 +30,13 @@ class NewsController extends Controller
         ]);
     }
 
+    function searchResultsPage(Request $request)
+    {
+        return Inertia::render('SearchResult', [
+            'params' => $request->query('q'),
+        ]);
+    }
+
     function breakingNewsList(Request $request)
     {
         return BreakingNews::latest()->take(10)->with('news')->get();
@@ -53,6 +61,11 @@ class NewsController extends Controller
     function newsById(Request $request)
     {
         return News::where('id', $request->id)->with('category', 'reporter')->first();
+    }
+    function newsListByTitle(Request $request)
+    {
+        $query = $request->title;
+        return News::where('title', 'like', '%' . $query . '%')->get();
     }
 
 }

@@ -43,9 +43,14 @@ const Navbar = () => {
 
     const handleSearch = () => {
         const query = searchRef.current?.value;
-        query && router.visit(`/search?q=${query}`, { method: 'get' });
+        query.trim(' ') && (router.visit(`/search?q=${query}`, { method: 'get' }));
     }
 
+    const handleEnterKey = (e) => {
+        if (e.key === 'Enter') {
+            handleSearch();
+        }
+    }
 
     return (
         <div className="header-area">
@@ -124,7 +129,11 @@ const Navbar = () => {
                                     <i onClick={handleSearch} className="fas fa-search special-tag"></i>
                                     <div className="search-box">
                                         <form action="#">
-                                            <input ref={searchRef} type="text" placeholder="Search" />
+                                            <input
+                                                type="text"
+                                                ref={searchRef}
+                                                onKeyDown={() => handleEnterKey(event)}
+                                                placeholder="Search" />
                                         </form>
                                     </div>
                                 </div>

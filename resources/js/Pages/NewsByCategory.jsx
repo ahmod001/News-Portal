@@ -27,12 +27,11 @@ const NewsByCategory = () => {
         })()
     }, [])
 
-
     return (
         <Layout>
             {isLoading ?
                 <Loading />
-                : <section className='min-vh-100'>
+                : (<section className='min-vh-100'>
                     <div className="trending-area fix">
                         <div className="container">
                             <div className="trending-main py-5">
@@ -53,7 +52,6 @@ const NewsByCategory = () => {
                                             <div className="row">
                                                 {newsList?.map((news, i) => {
                                                     const { id, title, img, description, created_at } = news;
-
                                                     if (i > 4) {
                                                         return (
                                                             <div key={i} className='col-lg-4'>
@@ -76,7 +74,7 @@ const NewsByCategory = () => {
                                             if (i > 0 && i < 5) {
                                                 return (
                                                     <HorizontalNewsCard
-                                                    key={i}
+                                                        key={i}
                                                         id={news?.id}
                                                         img={news?.img}
                                                         title={news?.title}
@@ -90,7 +88,7 @@ const NewsByCategory = () => {
                             </div>
                         </div>
                     </div>
-                </section>}
+                </section>)}
         </Layout>
     );
 };

@@ -12,6 +12,7 @@ Route::controller(NewsController::class)->group(function () {
     Route::get('/', 'homePage');
     Route::get('/collections/{categoryName}', 'newsByCategoryPage');
     Route::get('/news/details/{id}', 'newsDetailsPage');
+    Route::get('/search', 'searchResultsPage');
 });
 
 // User
@@ -32,6 +33,7 @@ Route::controller(NewsController::class)->group(function () {
     Route::get('/newsListByCategory/{name}', 'newsListByCategory');
     Route::get('/breakingNewsList', 'breakingNewsList');
     Route::get('/categoryList', 'categoryList');
+    Route::get('/newsListByTitle/{title}', 'newsListByTitle');
 });
 
 // User

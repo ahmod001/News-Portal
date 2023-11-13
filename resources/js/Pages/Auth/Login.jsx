@@ -26,7 +26,6 @@ const Login = () => {
             errorToast('Email/Password is invalid');
         }
     }
-
     return (
         isLoading ?
             (<Loading />)
