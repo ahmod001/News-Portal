@@ -10,12 +10,17 @@ const Navbar = () => {
     const [cookies, setCookie] = useCookies();
 
     const searchRef = useRef();
-
     const token = cookies.token;
+
     useEffect(() => {
-        if (token) {
-            setIsLoggedIn(true)
-        }
+        (async () => {
+            if (token) {
+                setIsLoggedIn(true)
+                // Check IsToken valid
+                const profile = await axios.get('/profile');
+                setIsLoggedIn(profile.data !== "unauthorized")
+            }
+        })()
     }, [])
 
     // Get Category List

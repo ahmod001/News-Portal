@@ -23,7 +23,7 @@ const SearchResult = () => {
 
 const NothingFound = () => (
     <div className='h-100 w-100 d-flex justify-content-center align-items-center'>
-        <h1>
+        <h1 style={{ fontSize: "2.2rem" }}>
             Nothing found
         </h1>
     </div>
