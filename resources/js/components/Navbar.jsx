@@ -1,6 +1,6 @@
 import { Link, router } from '@inertiajs/react';
 import axios from 'axios';
-import React, { useEffect, useState, useRef, useContext } from 'react';
+import React, { useEffect, useState, useRef, useContext, useMemo } from 'react';
 import { useCookies } from "react-cookie";
 import { userContext } from '../Context/UserContext';
 
@@ -15,16 +15,19 @@ const Navbar = () => {
     useEffect(() => {
         (async () => {
             if (token) {
-                setIsLoggedIn(true)
-                // Check IsToken valid
-                const profile = await axios.get('/profile');
-                setIsLoggedIn(profile.data !== "unauthorized")
+                try {
+                    // Check IsToken valid
+                    const profile = await axios.get('/profile');
+                    setIsLoggedIn(profile.data !== "unauthorized")
+                } catch (error) {
+                    axios.get('/userLogout')
+                }
             }
         })()
     }, [])
 
     // Get Category List
-    useEffect(() => {
+    useMemo(() => {
         (async () => {
             try {
                 const res = await axios.get('/categoryList');
@@ -35,7 +38,6 @@ const Navbar = () => {
         })()
     }, [])
 
-
     const getCurrentDate = () => {
         const options = {
             weekday: 'long',
@@ -43,7 +45,13 @@ const Navbar = () => {
             month: 'long',
             year: 'numeric',
         };
+
         return new Intl.DateTimeFormat('en-US', options).format(new Date());
+    }
+
+    const getSearchQuery = () => {
+        const url = new URL(location.href)
+        return url.search.split('=')[1]
     }
 
     const handleSearch = () => {
@@ -86,11 +94,12 @@ const Navbar = () => {
 
                             <div>
                                 {!isLoggedIn ?
-                                    (// Login Btn
-                                        <Link href='/login'>
-                                            <button type="button" style={{ transform: 'scale(0.75)', fontSize: "1rem" }} class="btn">Login</button>
-                                        </Link>)
+                                    // Login Btn
+                                    (<Link href='/login'>
+                                        <button type="button" style={{ transform: 'scale(0.75)', fontSize: "1rem" }} className="btn">Login</button>
+                                    </Link>)
 
+                                    // Profile Btn
                                     : (<Link title='Profile' href='/profile'>
                                         <img src="/assets/img/user.jpg" style={{ maxHeight: '3rem', borderRadius: '100%' }} alt={name} />
                                     </Link>)}
@@ -133,13 +142,12 @@ const Navbar = () => {
                                 <div className="header-right-btn f-right d-none d-lg-block">
                                     <i onClick={handleSearch} className="fas fa-search special-tag"></i>
                                     <div className="search-box">
-                                        <form action="#">
-                                            <input
-                                                type="text"
-                                                ref={searchRef}
-                                                onKeyDown={() => handleEnterKey(event)}
-                                                placeholder="Search" />
-                                        </form>
+                                        <input
+                                            defaultValue={getSearchQuery()}
+                                            type="text"
+                                            ref={searchRef}
+                                            onKeyDown={() => handleEnterKey(event)}
+                                            placeholder="Search" />
                                     </div>
                                 </div>
                             </div>

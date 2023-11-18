@@ -62,10 +62,11 @@ class NewsController extends Controller
     {
         return News::where('id', $request->id)->with('category', 'reporter')->first();
     }
+    
     function newsListByTitle(Request $request)
     {
         $query = $request->title;
-        return News::where('title', 'like', '%' . $query . '%')->get();
+        return News::where('title', 'like', '%' . $query . '%')->paginate(10);
     }
 
 }
